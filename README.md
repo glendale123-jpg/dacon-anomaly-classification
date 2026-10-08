@@ -43,6 +43,18 @@ ReLU와 GELU MLP는 활성화 함수만 다른 같은 구조라 예측이 겹쳤
 | 후처리 | Argmax vs Hungarian | Argmax 0.8146 / Hungarian 0.8621 → **Hungarian 필수** 근거 |
 | 정규화 | Train+Test 통합 정규화 | Private 0.8635 (+0.004) |
 
+실험 노트북 (Colab에서 실행한 결과 출력 포함):
+
+| 노트북 | 내용 |
+|---|---|
+| [01_LightGBM_기준선](experiments/01_LightGBM_기준선.ipynb) | 원본 52개 피처 LightGBM 5-fold (OOF F1 0.8041) |
+| [02_피처엔지니어링_탐색](experiments/02_피처엔지니어링_탐색.ipynb) | 행 통계·센서 조합 피처 추가, Argmax vs Hungarian 비교 |
+| [03_피처제거_X01](experiments/03_피처제거_X01.ipynb) | `X_01` 제거 실험 |
+| [04_FE통합_argmax](experiments/04_FE통합_argmax.ipynb) | FE + TabNet 5-fold + AutoGluon f1_macro, Argmax 후처리 (실험 B) |
+| [05_hungarian_vs_argmax](experiments/05_hungarian_vs_argmax.ipynb) | 저장된 확률로 후처리·가중치 비교 (실험 C) |
+| [06_통합정규화_hungarian](experiments/06_통합정규화_hungarian.ipynb) | Train+Test 통합 정규화 + Hungarian (실험 E, Private 0.8635) |
+| [07_LightGBM_추가_앙상블](experiments/07_LightGBM_추가_앙상블.ipynb) | LightGBM을 5번째 모델로 추가 → 가중치 0.001로 기여 없음 확인 |
+
 이 실험들의 공통 방법론이 팀 최종 코드의 기반이 됐고, 이후 피처를 더 넣는 시도는 모두 기준을 넘지 못해 **"LDA가 이미 잡은 신호와 겹치는 피처는 손해"** 라는 결론을 냈습니다.
 
 ## 자료
